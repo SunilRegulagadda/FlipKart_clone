@@ -1,7 +1,10 @@
 After Cloning this Project Go to Root Directory Flipkart In Terminal 
 
 for cloning command 
+
     git clone https://github.com/SunilRegulagadda/FlipKart_clone.git
+
+    
 The aboe command Will clone The current Woriking Project
 
 =============================================================================================
