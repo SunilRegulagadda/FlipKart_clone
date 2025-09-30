@@ -31,3 +31,12 @@ Use this commands To Push Repo
     git remote add origin https://github.com/SunilRegulagadda/FlipKart_clone.git
     
     git push -u origin main
+
+===================================================================================================
+
+
+To Pull The Project
+
+    git reset --hard
+
+    git pull origin main 
