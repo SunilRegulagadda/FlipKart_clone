@@ -16,11 +16,7 @@ function About() {
                 Every component was carefully designed using React for the frontend, with state management 
                 handled through React Hooks to ensure smooth user interaction and performance.
             </p>
-            <p>
-                The backend was built using Node.js and Express, ensuring secure communication between 
-                the client and the server. MongoDB was used for database management to handle user details, 
-                product information, and order tracking efficiently.
-            </p>
+            
             <p>
                 This project demonstrates the team’s ability to translate theoretical knowledge into 
                 practical implementation, focusing on responsiveness, UI/UX design, and data-driven 

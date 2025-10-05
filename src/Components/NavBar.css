@@ -30,8 +30,9 @@
 }
 
 .nav-logo {
-    height: 34px; 
+    /* height: px;  */
     margin-bottom: 0;
+    object-fit: contain;
 }
 
 .explore-plus {

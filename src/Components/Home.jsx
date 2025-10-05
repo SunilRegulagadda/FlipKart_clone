@@ -39,7 +39,7 @@ function Home() {
         async function GetCategories() {
             let categories = await axios.get('https://dummyjson.com/products/categories');
 
-            let shuffled = categories.data.sort(() => 0.5 - Math.random()).slice(0, 15);
+            let shuffled = categories.data.sort(() => 0.5 - Math.random()).slice(0, 22);
 
             let cards = await Promise.all(
                 shuffled.map(async (cat) => {

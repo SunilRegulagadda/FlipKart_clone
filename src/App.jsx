@@ -8,25 +8,27 @@ import SignUp from "./Components/SignUp.jsx";
 import Cart from "./Components/Cart.jsx";
 import Orders from "./Components/Orders.jsx";
 import About from "./Components/About.jsx";
+import "./App.css"; // create this file
 
 function App() {
     return (
-        <>
-            <Router>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/category/:slug" element={<CategoryFilterProduct />} />
-                    <Route path="/search/:searchTerm" element={<SearchFilterProduct />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/orders" element={<Orders />} />
-                    <Route path='/signup' element={<SignUp />} />
-                    <Route path='/about' element={<About />} />
-                </Routes>
-            </Router>
-
+        <div className="page-container">
+            <div className="content-wrap" style={{ marginTop: "30px" }}>
+                <Router>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/category/:slug" element={<CategoryFilterProduct />} />
+                        <Route path="/search/:searchTerm" element={<SearchFilterProduct />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/orders" element={<Orders />} />
+                        <Route path='/signup' element={<SignUp />} />
+                        <Route path='/about' element={<About />} />
+                    </Routes>
+                </Router>
+            </div>
             <Footer />
-        </>
+        </div>
     );
 }
 

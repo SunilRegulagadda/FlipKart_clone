@@ -1,3 +1,22 @@
-/* *{
-    background-color: ;
-} */
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.content-wrap {
+  flex: 1;
+}
+@media (max-width: 768px) {
+  .content-wrap {
+    margin-top: 5px; /* smaller top margin on tablets and mobiles */
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrap {
+    margin-top: 5px; /* very small top margin on small phones */
+    padding: 0 5px;
+  }
+}

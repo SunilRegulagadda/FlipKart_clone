@@ -1,31 +1,62 @@
 .footer {
-  background-color: #f1f1f1;
-  padding: 20px;
+  background-color: white;
+  color: black;
   text-align: center;
-  color: #333;
-  /* margin-top: 40px; */
-  border-top: 1px solid #ddd;
-  /* position: absolute;
-  width: 100%;
-  bottom: 0; */
+  padding: 30px 20px;
+  /* border-top: 2px solid black; */
 }
 
-.footer p {
-  margin: 5px 0;
-  font-size: 14px;
+.footer-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.footer .social-icons {
-  margin-top: 10px;
+.footer-desc {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.footer .social-icons a {
+.footer-team {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-weight: 500;
+}
+
+.footer-team li {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.footer-team li:hover {
+  background-color: #dcdcdc;
+}
+
+.social-icons {
+  margin: 15px 0;
+}
+
+.social-icons a {
+  color: black;
   margin: 0 10px;
-  font-size: 20px;
-  color: #555;
+  font-size: 22px;
   transition: color 0.3s ease;
 }
 
-.footer .social-icons a:hover {
-  color: #2874f0; /* Flipkart blue */
+.social-icons a:hover {
+  color: orangered;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  font-size: 14px;
+  color: black;
 }
