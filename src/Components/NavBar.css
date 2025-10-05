@@ -18,16 +18,20 @@
     padding: 0 15px;
 }
 
+.nav-container {
+    gap: 16px; /* space between logo, search and links */
+}
+
 .nav-logo-link {
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    margin-right: 40px;
+    margin-right: 12px;
 }
 
 .nav-logo {
-    height: 30px; 
-    margin-bottom: -5px;
+    height: 34px; 
+    margin-bottom: 0;
 }
 
 .explore-plus {
@@ -48,13 +52,14 @@
 
 .search-form {
     display: flex;
-    flex-grow: 1; 
-    max-width: 800px; 
-    height: 38px;
+    flex: 1 1 600px; /* allow search to grow but leave room for right-side links */
+    max-width: 700px; 
+    height: 40px;
     background-color: #F0F5FF;
     border-radius: 8px;
     overflow: hidden;
-    margin-right: 20px;
+    margin-right: 12px;
+    box-sizing: border-box;
 }
 
 .search-input {
@@ -85,9 +90,8 @@
 .nav-links {
     display: flex;
     align-items: center;
-    flex-shrink: 0; 
-    position: absolute;
-    right:250px;
+    gap: 16px;
+    margin-left: auto; /* push links to the right */
 }
 
 .nav-link-item {
@@ -101,6 +105,7 @@
     font-size: 16px;
     display: flex;
     align-items: center;
+    padding: 6px 8px; /* give clickable area so links don't touch the search */
 }
 
 .nav-link-item i {
@@ -108,6 +113,28 @@
     font-size: 20px;
     position: relative;
     top: -1px;
+}
+
+/* Ensure the first nav item (Login or username) sits next to the search bar
+   and the rest are pushed to the far right. This works for both logged-in
+   and logged-out states because the first two children in the DOM are
+   login/username and cart respectively. */
+.nav-links .nav-link-item:first-child {
+    margin-left: 0;
+}
+.nav-links .nav-link-item:nth-child(2) {
+    margin-left: auto;
+}
+
+/* Slightly larger person icon so profile looks clear */
+.nav-link-item .bi-person-circle {
+    font-size: 22px;
+}
+
+/* A bit more spacing for cart and other links so they don't touch the search */
+.nav-link-item.cart a, .nav-link-item.login-dropdown a {
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .more-options a {
@@ -123,8 +150,13 @@
 }
 
 .username-display{
-    position: fixed;
-    left:0;
+    position: relative;
+    left: auto;
+    margin-right: 6px;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .count{
     background-color: orangered;
@@ -140,3 +172,73 @@
 .dropdown-toggle::after {
   display: none !important;
 }
+
+/* Responsive rules ----------------------------------------------------- */
+
+/* Mobile: narrow screens stack the search bar and make icons smaller */
+@media (max-width: 600px) {
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 8px 12px;
+        align-items: center;
+    }
+
+    .nav-logo-link {
+        margin-right: 8px;
+        flex: 0 0 auto;
+    }
+
+    .nav-logo {
+        height: 28px; /* slightly smaller logo on phones */
+    }
+
+    /* Make the search occupy full width below the logo when space is tight */
+    .search-form {
+        order: 2;
+        flex: 1 1 100%;
+        max-width: 100%;
+        height: 38px;
+        margin: 6px 0;
+    }
+
+    .search-input { font-size: 14px; padding: 0 12px; }
+
+    /* Place login / first nav item immediately to the right of the search when possible;
+         if not enough horizontal space, nav-links will wrap to the next line */
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .nav-link-item a { font-size: 14px; padding: 6px 6px; }
+
+    .nav-link-item .bi-person-circle { font-size: 20px; }
+
+    /* Reduce cart badge size on very small screens */
+    .count { height: 18px; width: 18px; font-size: 0.75rem; }
+}
+
+/* Tablet: medium screens - keep everything in one row but reduce widths */
+@media (min-width: 601px) and (max-width: 900px) {
+    .nav-container { max-width: 1000px; padding: 0 12px; }
+    .nav-logo { height: 32px; }
+    .search-form { flex: 1 1 520px; max-width: 520px; height: 40px; }
+    .search-input { font-size: 14px; }
+    .nav-link-item a { font-size: 15px; }
+    .nav-link-item .bi-person-circle { font-size: 21px; }
+}
+
+/* Laptop / Desktop: slightly larger spacing and sizes */
+@media (min-width: 901px) {
+    .nav-container { max-width: 1400px; }
+    .nav-logo { height: 40px; }
+    .search-form { flex: 1 1 700px; max-width: 800px; height: 44px; }
+    .search-input { font-size: 15px; }
+    .nav-link-item a { font-size: 16px; padding: 8px 10px; }
+    .nav-link-item .bi-person-circle { font-size: 24px; }
+    .count { height: 20px; width: 20px; }
+}
+

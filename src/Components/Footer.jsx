@@ -6,7 +6,16 @@ function Footer() {
     <footer className="footer">
       <p>
         This is a Page of Flipkart Clone developed by{" "}
-        <b>CSE A Sunil and Team</b> as a part of Holidays Project.
+        <b><ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          </ul></b> as a part of Holidays Project.
       </p>
       <div className="social-icons">
         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">

@@ -22,8 +22,7 @@ const PrevArrow = ({ onClick }) => (
 
 function Home() {
     const [categoryCards, setCategoryCards] = useState([]);
-    const [bestDealsCategory, setBestDealsCategory] = useState(null);
-    const [bestDealsProducts, setBestDealsProducts] = useState([]);
+    const [bestDealsList, setBestDealsList] = useState([]); // array of { category, products }
     const navigate = useNavigate();
 
     // Carousel images (replace with Pinterest images)
@@ -57,15 +56,18 @@ function Home() {
 
             setCategoryCards(cards);
 
-            // pick 1 random category for best deals
-            let randomCat = cards[Math.floor(Math.random() * cards.length)];
-            setBestDealsCategory(randomCat);
-
-            // fetch products for that category, sorted
-            if (randomCat) {
-                let res = await axios.get(`https://dummyjson.com/products/category/${randomCat.slug}?sortBy=price&order=asc`);
-                setBestDealsProducts(res.data.products);
-            }
+            // pick up to 4 random categories for separate Best Deals blocks
+            const picks = cards.slice(0).sort(() => 0.5 - Math.random()).slice(0, Math.min(4, cards.length));
+            const list = await Promise.all(picks.map(async (c) => {
+                try {
+                    const res = await axios.get(`https://dummyjson.com/products/category/${c.slug}?sortBy=price&order=asc&limit=12`);
+                    return { category: c, products: res.data.products };
+                } catch (err) {
+                    console.error('Failed to load category products for', c.slug, err);
+                    return { category: c, products: [] };
+                }
+            }));
+            setBestDealsList(list);
         }
 
         GetCategories();
@@ -132,15 +134,37 @@ function Home() {
                 </Slider>
             </div>
 
-            {/* Best Deals Section */}
-            {bestDealsCategory && (
-                <div style={{ margin: "40px 20px" }} className="sortbyprice">
-                    <h2>Best Deals from this Category: {bestDealsCategory.name}</h2>
-                    <Slider {...settingsDeals}>
-                        {bestDealsProducts.map((prod) => (
+            {/* Best Deals Section - multiple categories */}
+            {bestDealsList.length > 0 && bestDealsList.map((bd) => (
+                <div key={bd.category.slug} style={{ margin: "40px 20px" }} className="sortbyprice">
+                    <h2>Best Deals from this Category: {bd.category.name}</h2>
+                    <Slider {...settingsDeals} responsive={[
+                        {
+                            breakpoint: 1024,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 2,
+                            }
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1,
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1,
+                            }
+                        }
+                    ]}>
+                        {bd.products.map((prod) => (
                             <div key={prod.id} style={{ padding: "10px" }}>
                                 <div style={{ border: "1px solid #ddd", borderRadius: "6px", textAlign: "center", padding: "10px" }}>
-                                    <img src={prod.thumbnail} alt={prod.title} style={{ width: "100%", height: "150px", objectFit: "contain" }} />
+                                    <img src={prod.thumbnail} alt={prod.title} style={{ width: "100%", objectFit: "contain" }} />
                                     <h4 style={{ fontSize: "14px", marginTop: "10px" }}>{prod.title}</h4>
                                     <p style={{ fontSize: "12px", color: "black" }}>₹ {prod.price}</p>
                                 </div>
@@ -148,7 +172,7 @@ function Home() {
                         ))}
                     </Slider>
                 </div>
-            )}
+            ))}
 
             {/* 6 Image Grid Section */}
             <div className="image-grid">

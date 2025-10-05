@@ -51,10 +51,13 @@
 }
 
 .carousel-container img {
-  width: 100%;
-  height: 400px;       
-  object-fit: contain; 
-  background: #f8f8f8; 
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/6; /* wide banner ratio */
+    object-fit: cover;
+    background: #f8f8f8;
+    display: block;
+    border-radius: 10px;
 }
 
 /* --- Main Container Styles --- */
@@ -78,10 +81,11 @@
 
 
 .sortbyprice > .slick-slider,
-.sortbyprice .slick-list { /* .slick-list is often the viewable area */
-    /* Requested width: 800px */
-    width: 1700px; 
-    margin: 0 auto; /* Center the carousel on the page */
+.sortbyprice .slick-list { /* .slick-list is the viewable area */
+    width: 100%;
+    max-width: 1200px; /* limit very wide layouts */
+    margin: 0 auto;
+    padding: 0 10px;
 }
 
 /* --- Individual Product Card/Deal Styles --- */
@@ -106,12 +110,28 @@
 
 /* --- Thumbnail Image Styles --- */
 .sortbyprice img {
-    /* Overrides inline image styles */
-    width: 100%;
-    height: 50px;
-    object-fit: contain;
-    margin-bottom: 10px;
-    margin-left: 5px;
+        width: 100%;
+        object-fit: contain;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        aspect-ratio: 4/3; /* product-card friendly ratio */
+        max-height: 180px; /* desktop cap */
+        display: block;
+}
+
+/* Additional responsive overrides for carousel banners */
+@media (min-width: 1025px) {
+    .carousel-container img { aspect-ratio: 16/6; max-height: 420px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .carousel-container img { aspect-ratio: 16/7; max-height: 300px; }
+    .sortbyprice img { aspect-ratio: 4/3; max-height: 140px; }
+}
+
+@media (max-width: 768px) {
+    .carousel-container img { aspect-ratio: 4/3; max-height: 220px; }
+    .sortbyprice img { aspect-ratio: 3/2; max-height: 120px; }
 }
 
 /* --- Product Title (Name) Styles --- */
@@ -176,30 +196,49 @@
         margin-left: 10px;
         margin-right: 10px;
     }
+    .sortbyprice img {
+        height: 110px; /* tablet image height */
+    }
 }
 
 /* Mobile Styles (max-width: 768px) */
 @media (max-width: 768px) {
+    /* Change categories to a horizontal scrollable strip on mobile */
     .categories {
         margin-left: 5px;
         margin-right: 5px;
-        padding: 10px;
-        flex-direction: column;
+        padding: 10px 6px;
+        flex-direction: row; /* horizontal row */
         align-items: center;
+        overflow-x: auto; /* allow horizontal scroll */
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
+        scroll-snap-type: x mandatory;
+        white-space: nowrap;
     }
 
+    .categories::-webkit-scrollbar { display: none; } /* hide scrollbar on webkit */
+
     .card {
-        width: 80px;
-        height: 100px;
+        width: 110px;
+        height: 120px;
+        flex: 0 0 auto; /* prevent wrapping */
+        padding: 8px;
+        margin: 0; /* gap handled by container */
+        scroll-snap-align: start;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .imgProduct {
-        width: 40px;
-        height: 40px;
+        width: 48px;
+        height: 48px;
     }
 
     .cardName {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .carousel-container {
@@ -233,7 +272,7 @@
     }
 
     .sortbyprice img {
-        height: 40px;
+        height: 90px; /* mobile image height */
     }
 
     .sortbyprice h4 {
@@ -260,6 +299,39 @@
     }
 }
 
+/* Extended mobile/small-tablet breakpoint: stack image grid vertically
+     This ensures devices that are slightly larger than 768px (many phones
+     in portrait or small tablets) will still see a single-column vertical layout */
+@media (max-width: 900px) {
+    .image-grid {
+        width: 100%;
+        margin: 10px 0;
+        display: grid;
+        grid-template-columns: 1fr; /* single column */
+        gap: 12px;
+        padding: 0 12px;
+    }
+
+    .image-grid .grid-card {
+        width: 100%;
+        margin: 0;
+    }
+
+    .image-grid .grid-card img {
+        width: 100%;
+        aspect-ratio: 3/2; /* taller for mobile
+        */
+        max-height: 260px;
+        object-fit: cover;
+    }
+
+    /* Reduce spacing around the carousel banners on smaller screens */
+    .carousel-container {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+}
+
 .image-grid {
   width: calc(100% - 40px); /* full width minus left & right margins */
   margin: 20px auto;
@@ -282,7 +354,31 @@
 }
 
 .image-grid .grid-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10; /* default desktop-friendly ratio */
+    object-fit: cover;
+    display: block;
+}
+
+/* Responsive adjustments for image aspect and max-height */
+@media (min-width: 1025px) {
+    .image-grid .grid-card img {
+        aspect-ratio: 16/10;
+        max-height: 320px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .image-grid .grid-card img {
+        aspect-ratio: 4/3; /* slightly taller on tablets */
+        max-height: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-grid .grid-card img {
+        aspect-ratio: 3/2; /* mobile: taller images for better visibility */
+        max-height: 220px;
+    }
 }

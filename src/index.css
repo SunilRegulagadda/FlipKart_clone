@@ -1,0 +1,118 @@
+/* Global base styles and responsive utilities
+	 This file only adds spacing, container, typography and breakpoint rules
+	 so the whole site adapts across mobile / tablet / desktop. No colors
+	 or HTML are changed. */
+
+:root {
+	--container-max-width: 1200px;
+	--space-xs: 4px;
+	--space-sm: 8px;
+	--space-md: 16px;
+	--space-lg: 24px;
+	--fs-base: 16px; /* will be adjusted in media queries */
+}
+
+/* Reset/box-sizing */
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Poppins, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	font-size: var(--fs-base);
+	line-height: 1.4;
+	color: #222;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, svg, video {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Page container to center content */
+.container {
+	width: 100%;
+	max-width: var(--container-max-width);
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
+/* Simple row / column utilities */
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-md);
+}
+
+.col {
+	flex: 1 1 0;
+}
+
+/* Typography scaling using clamp for fluid scaling */
+h1 { font-size: clamp(1.5rem, 3.5vw, 2.25rem); margin: 0 0 var(--space-md) 0; }
+h2 { font-size: clamp(1.25rem, 2.6vw, 1.75rem); margin: 0 0 var(--space-sm) 0; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.25rem); margin: 0 0 var(--space-sm) 0; }
+p { margin: 0 0 var(--space-sm) 0; }
+
+/* Buttons and links spacing (no color changes) */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+/* Helpful visibility utilities */
+.hide-mobile { display: inline-block; }
+.show-mobile { display: none; }
+
+/* Default breakpoint behaviour (desktop-first) */
+@media (min-width: 901px) {
+	:root { --fs-base: 16px; --container-max-width: 1400px; }
+	.container { padding: 0 16px; }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 900px) {
+	:root { --fs-base: 15px; --container-max-width: 1000px; }
+	.container { padding: 0 12px; }
+	.hide-mobile { display: inline-block; }
+	.show-mobile { display: none; }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+	:root { --fs-base: 14px; --container-max-width: 100%; }
+	body { font-size: var(--fs-base); }
+	.container { padding: 0 12px; }
+
+	/* Stack common layout blocks when narrow */
+	.row { flex-direction: column; }
+
+	/* Hide desktop-only elements and show mobile ones (if used elsewhere) */
+	.hide-mobile { display: none !important; }
+	.show-mobile { display: inline-block !important; }
+
+	/* Slightly reduce global spacing on very small screens */
+	:root { --space-md: 12px; }
+}
+
+/* Small helpers for large images or cards to avoid overflow */
+.card, .panel {
+	width: 100%;
+}
+
+/* End of global responsive helpers */
