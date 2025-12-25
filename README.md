@@ -1,4 +1,4 @@
-Here’s a cleaner beginner-friendly version of your README.md:
+
 
 # Flipkart Clone
 
@@ -48,10 +48,3 @@ git reset --hard       # removes your local changes
 git pull origin main   # downloads the latest code
 
 
-✅ That’s it!
-You can now clone, run, push, and pull this project easily.
-
-
----
-
-Do you want me to **keep the "git init, branch -M main, remote add" steps** in README (for very first push), or simplify and show only the **daily workflow (add → commit → push)**?
